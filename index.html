@@ -30,8 +30,8 @@
         }
       })();
     </script>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=b3fbfc3892df">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=b4472da6a0f4">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
     <link rel="icon" type="image/png" href="favicon.png">
     <script type="module" src="/src/main.js?v=1.14.0"></script>
     <title>Markdown Live Preview</title>
@@ -57,17 +57,20 @@
             <a class="brand" href="/">Markdown <b>Studio</b></a>
         </div>
         <div id="menu-items">
-            <div><button type="button" id="open-button" class="toolbar-button">Open</button></div>
+            <button type="button" id="open-button" class="toolbar-button">Open</button>
             <input type="file" id="open-file-input" accept=".md,.markdown,text/markdown" hidden>
-            <div id="copy-button"><a class="toolbar-button" href="#">Copy</a></div>
-            <div id="export-button"><a class="toolbar-button" href="#">Export PDF</a></div>
-            <div id="reset-button"><a class="toolbar-button danger" href="#">Reset</a></div>
-            <div id="sync-button">
-              <input type="checkbox" id="sync-scroll-checkbox"><label for="sync-scroll-checkbox">Sync scroll</label>
-              <span class="theme-control"><input type="checkbox" id="theme-checkbox"><label for="theme-checkbox">Dark mode</label></span>
+            <button type="button" id="copy-button" class="toolbar-button">Copy</button>
+            <button type="button" id="export-button" class="toolbar-button">Export PDF</button>
+            <button type="button" id="reset-button" class="toolbar-button danger">Reset</button>
+            <div class="header-controls">
+              <label class="toggle-control" for="sync-scroll-checkbox">
+                <input type="checkbox" id="sync-scroll-checkbox"><span class="toggle-track" aria-hidden="true"></span><span>Sync scroll</span>
+              </label>
+              <label class="toggle-control" for="theme-checkbox">
+                <input type="checkbox" id="theme-checkbox"><span class="toggle-track" aria-hidden="true"></span><span>Dark mode</span>
+              </label>
             </div>
         </div>
-        <div id="github"><a href="https://github.com/tanabe/markdown-live-preview"><img src="image/GitHub-Mark-Light-32px.webp"></a></div>
     </header>
 
     <div id="workspace">

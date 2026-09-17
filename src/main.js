@@ -666,7 +666,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
     };
 
     let notifyCopied = () => {
-        let labelElement = document.querySelector("#copy-button a");
+        let labelElement = document.querySelector("#copy-button");
         labelElement.textContent = "Copied!";
         setTimeout(() => {
             labelElement.textContent = "Copy";
