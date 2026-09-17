@@ -1,6 +1,6 @@
-# Markdown Live Preview
+# MarkdownStudio
 
-[Markdown Live Preview](https://markdownlivepreview.com/) is a tiny web tool to preview Markdown formatted text.
+MarkdownStudio is a tiny web tool to preview Markdown formatted text.
 
 ## Setup
 
