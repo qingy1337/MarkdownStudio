@@ -130,6 +130,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
             if (!activeTab) return;
             const value = instance.getValue();
             activeTab.content = value;
+            activeTab.updatedAt = Date.now();
             let changed = value != defaultInput;
             if (changed) {
                 hasEdited = true;
@@ -290,6 +291,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
             id,
             title: cleanTabTitle(title),
             content: String(content),
+            updatedAt: Date.now(),
             model: monaco.editor.createModel(String(content), 'markdown', monaco.Uri.parse(`inmemory://markdown-studio/${id}.md`))
         };
         tabs.push(tab);
@@ -300,7 +302,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
         const expiredAt = new Date(2099, 1, 1);
         const state = {
             activeTabId,
-            tabs: tabs.map(({ id, title, content }) => ({ id, title, content }))
+            tabs: tabs.map(({ id, title, content, updatedAt }) => ({ id, title, content, updatedAt }))
         };
         Storehouse.setItem(localStorageNamespace, localStorageWorkspaceKey, state, expiredAt);
     };
@@ -316,7 +318,8 @@ This web site is using ${"`"}markedjs/marked${"`"}.
             .map((tab) => ({
                 id: typeof tab.id === 'string' ? tab.id : createTabId(),
                 title: cleanTabTitle(tab.title),
-                content: tab.content
+                content: tab.content,
+                updatedAt: typeof tab.updatedAt === 'number' ? tab.updatedAt : Date.now()
             }));
 
         if (!restoredTabs.length) return null;
@@ -330,9 +333,30 @@ This web site is using ${"`"}markedjs/marked${"`"}.
     const closeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>';
     const editIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.75 16.75-.5 3.5 3.5-.5L18.4 9.1a2.05 2.05 0 0 0-2.9-2.9L4.75 16.75ZM13.9 7.8l2.3 2.3"/></svg>';
 
+    const formatLastUpdated = (updatedAt) => {
+        const elapsedSeconds = Math.max(0, Math.floor((Date.now() - updatedAt) / 1000));
+        if (elapsedSeconds < 45) return 'Last updated: just now';
+        const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+        if (elapsedMinutes < 60) return `Last updated: ${elapsedMinutes} min ago`;
+        const elapsedHours = Math.floor(elapsedMinutes / 60);
+        if (elapsedHours < 24) return `Last updated: ${elapsedHours} hr ago`;
+        const elapsedDays = Math.floor(elapsedHours / 24);
+        return `Last updated: ${elapsedDays} day${elapsedDays === 1 ? '' : 's'} ago`;
+    };
+
+    const updateDocumentBar = () => {
+        const activeTab = getActiveTab();
+        const documentName = document.querySelector('#current-document-name');
+        const updated = document.querySelector('#document-updated');
+        if (!activeTab) return;
+        if (documentName) documentName.textContent = activeTab.title;
+        if (updated) updated.textContent = formatLastUpdated(activeTab.updatedAt);
+    };
+
     const renderTabs = () => {
         const list = document.querySelector('#tab-list');
         if (!list) return;
+        updateDocumentBar();
         list.innerHTML = '';
 
         tabs.forEach((tab) => {
@@ -395,7 +419,10 @@ This web site is using ${"`"}markedjs/marked${"`"}.
 
         const finish = (save) => {
             if (!input.isConnected) return;
-            if (save) tab.title = cleanTabTitle(input.value);
+            if (save) {
+                tab.title = cleanTabTitle(input.value);
+                tab.updatedAt = Date.now();
+            }
             saveWorkspace();
             renderTabs();
         };
@@ -811,7 +838,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
         const divider = document.getElementById('split-divider');
         const leftPane = document.getElementById('edit');
         const rightPane = document.getElementById('preview');
-        const container = document.getElementById('container');
+        const container = document.getElementById('document-split');
 
         let isDragging = false;
 
@@ -886,6 +913,7 @@ This web site is using ${"`"}markedjs/marked${"`"}.
     editor = setupEditor();
     setupWorkspace();
     setupSidebar();
+    window.setInterval(updateDocumentBar, 30_000);
     setupOpenButton();
     setupResetButton();
     setupCopyButton(editor);

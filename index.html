@@ -30,7 +30,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=e3452e3c17ab">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=b3fbfc3892df">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
     <link rel="icon" type="image/png" href="favicon.png">
     <script type="module" src="/src/main.js?v=1.14.0"></script>
@@ -83,6 +83,12 @@
       </aside>
 
       <div id="container" class="split-container">
+        <div id="document-bar" aria-live="polite">
+          <span class="document-bar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.75 3.75h7.1l4.4 4.4v12.1H6.75a1 1 0 0 1-1-1v-14.5a1 1 0 0 1 1-1Zm6.5 1.8v3.3h3.3"/></svg></span>
+          <span id="current-document-name">Untitled document</span>
+          <span id="document-updated">Last updated: just now</span>
+        </div>
+        <div id="document-split" class="split-container">
 
         <div id="edit" class="column editor-pane">
             <div id="editor-wrapper">
@@ -96,6 +102,7 @@
             <div id="preview-wrapper">
                 <div id="output" class="content markdown-body"></div>
             </div>
+        </div>
         </div>
       </div>
     </div>

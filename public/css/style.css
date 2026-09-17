@@ -502,7 +502,12 @@ header .brand, header .brand:link, header .brand:visited, header .brand:hover, h
 #workspace.sidebar-collapsed .tab-item.active { background: transparent; border-color: transparent; box-shadow: none; }
 #workspace.sidebar-collapsed .sidebar-footer { justify-content: center; margin: 8px; padding: 8px 0; }
 
-#container { flex: 1; min-width: 0; width: auto; border-bottom: 0; background: var(--chrome-strong); }
+#container { flex: 1; min-width: 0; width: auto; border-bottom: 0; background: var(--chrome-strong); flex-direction: column; }
+#document-split { flex: 1; min-height: 0; }
+#document-bar { display: flex; flex: 0 0 47px; align-items: center; gap: 8px; box-sizing: border-box; height: 47px; padding: 0 19px; border-bottom: 1px solid var(--border); background: var(--chrome); color: #536176; font-family: var(--ui-font); font-size: 12px; font-weight: 600; letter-spacing: -.01em; }
+.document-bar-icon { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-ink); }
+.document-bar-icon svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+#document-updated { margin-left: auto; color: #99a6b8; font-size: 11px; font-weight: 500; }
 .split-container { min-width: 0; }
 .column { min-width: 0; }
 #edit { background: var(--chrome-strong); }
@@ -526,6 +531,8 @@ footer { display: none; }
   --accent-ink: #c3bbff;
 }
 [data-theme="dark"] header, [data-theme="dark"] #container, [data-theme="dark"] #preview, [data-theme="dark"] #edit, [data-theme="dark"] #tab-sidebar { background: var(--chrome-strong); }
+[data-theme="dark"] #document-bar { background: var(--chrome); color: #bcc8d6; }
+[data-theme="dark"] #document-updated { color: #8795a8; }
 [data-theme="dark"] #tab-sidebar { background: var(--chrome); }
 [data-theme="dark"] .tab-item:hover { background: transparent; }
 [data-theme="dark"] .tab-item.active { border-color: #465362; background: #242938; box-shadow: 0 2px 9px rgba(0, 0, 0, .2); }
@@ -553,7 +560,7 @@ footer { display: none; }
 }
 
 @media print {
-  #tab-sidebar, #sidebar-toggle { display: none !important; }
+  #tab-sidebar, #sidebar-toggle, #document-bar { display: none !important; }
   #workspace { display: block; overflow: visible; }
   #container { display: block; width: 100%; height: auto; }
 }
