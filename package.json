@@ -1,0 +1,38 @@
+{
+  "name": "markdown-live-preview",
+  "version": "1.0.0",
+  "description": "[Markdown Live Preview](https://markdownlivepreview.com/) is a tiny web tool to preview Markdown formatted text.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update:css-version": "node scripts/update-css-version.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve-dist": "http-server dist -p 5001 -c-1",
+    "build-and-serve": "npm run build && npm run serve-dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanabe/markdown-live-preview.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanabe/markdown-live-preview/issues"
+  },
+  "homepage": "https://github.com/tanabe/markdown-live-preview#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "vite": "^6.4.3"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.13",
+    "github-markdown-css": "^5.8.1",
+    "marked": "^15.0.7",
+    "mermaid": "^11.16.1",
+    "monaco-editor": "^0.52.2",
+    "storehouse-js": "github:tanabe/Storehouse-js"
+  }
+}
